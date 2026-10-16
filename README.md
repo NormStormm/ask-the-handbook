@@ -4,7 +4,16 @@
 
 From years of being the person new hires asked, and of answering the same 20 questions every week while also running a floor.
 
-<!-- SCREENSHOTS -->
+### Every answer quotes the section it came from
+<img src="docs/screenshots/answer-with-sources.png" alt="Answer to 'How do I request time off?' with footnotes linking to Handbook 4.2 and 1.1, each section quoted in full" width="640">
+
+### Not in the handbook? It says so, and sends the question to HR
+<img src="docs/screenshots/not-in-handbook.png" alt="'Can I borrow supplies from work and take them home?' answered with 'Not in the handbook: sent to HR'" width="640">
+
+### HR sees what the handbook is missing
+<img src="docs/screenshots/hr-view.png" alt="HR view listing escalated questions (supplies, bringing a dog) and one flagged question" width="640">
+
+*The flagged allergy question is from before fix [F1](docs/findings.md#f1-correct-answers-flagged-because-of-list-numbering-number-check): the log caught a bug in the number check, which was then fixed.*
 
 | | |
 |---|---|

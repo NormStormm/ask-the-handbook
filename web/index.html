@@ -127,7 +127,9 @@ async function askQ(question) {
     card.innerHTML = `<div class="q">${esc(question)}</div><span class="badge ${esc(r.status)}">${esc(LABELS[r.status] || r.status)}</span>
       <div class="a">${body}</div>${sources}${warn}<div class="meta">${r.seconds}s · $${r.cost.toFixed(4)}</div>`;
   } catch (e) {
-    card.querySelector('.a').textContent = 'Something went wrong. Please ask your manager or HR (ext. 4100).';
+    card.querySelector('.a').textContent = (e instanceof TypeError
+      ? "Can't reach the assistant (its server may be stopped). "
+      : 'Something went wrong. ') + 'Please ask your manager or HR (ext. 4100).';
   } finally {
     go.disabled = false; go.textContent = 'Ask';
   }
