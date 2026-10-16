@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask the Handbook</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --ink: #1d2433; --muted: #5b6577; --line: #e3e6eb;
+    --accent: #1f4e79; --accent-soft: #e8f0f8; --ok: #2e7d4f; --warn: #a15c00; --warn-soft: #fff4e0; --bad: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171c; --card: #1c2028; --ink: #e8eaee; --muted: #9aa3b2; --line: #2c323d;
+            --accent: #7fb0e0; --accent-soft: #22303f; --ok: #6fcf97; --warn: #f2b45a; --warn-soft: #3a2f1d; --bad: #f28b82; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  header { background: var(--accent); color: #fff; padding: 18px 16px; }
+  @media (prefers-color-scheme: dark) { header { color: #0f141b; } }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 2px 0 0; opacity: .85; font-size: 14px; }
+  main { max-width: 760px; margin: 0 auto; padding: 16px; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .tabs button { border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: 14px; }
+  .tabs button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .tabs button.on { color: #0f141b; } }
+  form { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font-size: 16px; }
+  form button { padding: 0 18px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+  @media (prefers-color-scheme: dark) { form button { color: #0f141b; } }
+  form button:disabled { opacity: .5; cursor: wait; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 18px; }
+  .chips button { border: 1px solid var(--line); background: var(--card); color: var(--muted); border-radius: 999px; padding: 5px 10px; font-size: 13px; cursor: pointer; }
+  .chips button:hover { color: var(--ink); border-color: var(--accent); }
+  .qa { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .q { font-weight: 600; margin-bottom: 8px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 8px; }
+  .ANSWERED { background: var(--accent-soft); color: var(--ok); }
+  .PARTIAL, .FLAGGED { background: var(--warn-soft); color: var(--warn); }
+  .ESCALATED, .ERROR { background: var(--warn-soft); color: var(--bad); }
+  .a { white-space: pre-wrap; }
+  sup a { color: var(--accent); text-decoration: none; font-weight: 700; padding: 0 1px; }
+  .sources { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+  .src { font-size: 14px; color: var(--muted); margin: 6px 0; }
+  .src b { color: var(--ink); }
+  .src blockquote { margin: 4px 0 0 0; padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--accent-soft); color: var(--ink); white-space: pre-wrap; border-radius: 0 6px 6px 0; }
+  .meta { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .note { color: var(--muted); font-size: 13px; margin: 18px 0; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Ask the Handbook</h1>
+  <p>Kaimana Demo Resort · Food &amp; Beverage team (fictitious, for a demo)</p>
+</header>
+<main>
+  <div class="tabs">
+    <button id="tab-ask" class="on" onclick="show('ask')">Ask a question</button>
+    <button id="tab-hr" onclick="show('hr')">HR view: what the handbook couldn't answer</button>
+  </div>
+
+  <section id="ask">
+    <form id="f">
+      <input type="text" id="q" placeholder="e.g. How early do I have to call out sick?" autocomplete="off" maxlength="500">
+      <button id="go">Ask</button>
+    </form>
+    <div class="chips">
+      <button>What do I do on my first day?</button>
+      <button>What do I need to finish in my first week?</button>
+      <button>What's due by the end of my first month?</button>
+      <button>How do I request time off?</button>
+      <button>A guest says they have a nut allergy. What do I do?</button>
+      <button>How do tips work for bussers?</button>
+      <button>What temperature does cold food need to be?</button>
+    </div>
+    <div id="out"></div>
+    <p class="note">Answers come only from the handbook and SOPs, with the exact section quoted. If it isn't in the handbook, the assistant says so and sends the question to HR instead of guessing.</p>
+  </section>
+
+  <section id="hr" class="hidden">
+    <p class="note">Questions the assistant couldn't fully answer. Each one is a gap in the handbook, or something HR should follow up on.</p>
+    <table><thead><tr><th>When</th><th>Status</th><th>Question</th></tr></thead><tbody id="gaps"></tbody></table>
+  </section>
+</main>
+
+<script>
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LABELS = {ANSWERED: 'Answered from the handbook', PARTIAL: 'Partly answered: rest sent to HR',
+                ESCALATED: 'Not in the handbook: sent to HR', FLAGGED: 'Needs checking: sent to HR', ERROR: 'Unavailable'};
+
+function show(which) {
+  for (const id of ['ask', 'hr']) {
+    document.getElementById(id).classList.toggle('hidden', id !== which);
+    document.getElementById('tab-' + id).classList.toggle('on', id === which);
+  }
+  if (which === 'hr') loadGaps();
+}
+
+async function loadGaps() {
+  const rows = await (await fetch('/api/unanswered')).json();
+  document.getElementById('gaps').innerHTML = rows.length
+    ? rows.map(r => `<tr><td>${esc(r.time.replace('T', ' '))}</td><td>${esc(r.status)}</td><td>${esc(r.question)}</td></tr>`).join('')
+    : '<tr><td colspan="3">Nothing yet.</td></tr>';
+}
+
+async function askQ(question) {
+  if (!question.trim()) return;
+  const go = document.getElementById('go');
+  go.disabled = true; go.textContent = '…';
+  const card = document.createElement('div');
+  card.className = 'qa';
+  card.innerHTML = `<div class="q">${esc(question)}</div><div class="a">Looking it up…</div>`;
+  document.getElementById('out').prepend(card);
+  try {
+    const r = await (await fetch('/api/ask', {method: 'POST', headers: {'content-type': 'application/json'},
+                                              body: JSON.stringify({question})})).json();
+    const body = r.parts.map(([text, nums]) =>
+      esc(text).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>') + nums.map(n => `<sup><a href="#" title="See source ${n}">[${n}]</a></sup>`).join('')).join('');
+    const sources = r.sources.length ? `<div class="sources">${r.sources.map(s =>
+      `<div class="src">[${s.n}] <b>${esc(s.label)}</b><blockquote>${esc(s.quote)}</blockquote></div>`).join('')}</div>` : '';
+    const warn = r.unsupported_numbers.length
+      ? `<div class="meta">⚠ ${esc(r.unsupported_numbers.join(', '))} isn't in the quoted sections, so this answer was sent to HR to double-check.</div>` : '';
+    card.innerHTML = `<div class="q">${esc(question)}</div><span class="badge ${esc(r.status)}">${esc(LABELS[r.status] || r.status)}</span>
+      <div class="a">${body}</div>${sources}${warn}<div class="meta">${r.seconds}s · $${r.cost.toFixed(4)}</div>`;
+  } catch (e) {
+    card.querySelector('.a').textContent = 'Something went wrong. Please ask your manager or HR (ext. 4100).';
+  } finally {
+    go.disabled = false; go.textContent = 'Ask';
+  }
+}
+
+document.getElementById('f').addEventListener('submit', e => {
+  e.preventDefault();
+  const q = document.getElementById('q');
+  askQ(q.value); q.value = '';
+});
+document.querySelectorAll('.chips button').forEach(b => b.addEventListener('click', () => askQ(b.textContent)));
+</script>
+</body>
+</html>
