@@ -2,7 +2,7 @@
 
 **New hires ask the same questions every week: when do schedules come out, how early do I call out sick, how do tips work. This assistant answers them from the employee handbook only, quotes the exact section it used, and when the handbook doesn't cover something, says so and sends the question to HR instead of guessing. HR gets a running list of what the handbook is missing. Built with the Claude API (citations + prompt caching), Python and a small web page.**
 
-From years of being the person new hires asked, and of answering the same 20 questions every week while also running a floor.
+From ten years on restaurant and hotel floors, where new hires ask the same questions every week and whoever is nearby answers them mid-shift.
 
 ### Every answer quotes the section it came from
 <img src="docs/screenshots/answer-with-sources.png" alt="Answer to 'How do I request time off?' with footnotes linking to Handbook 4.2 and 1.1, each section quoted in full" width="640">
